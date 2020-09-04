@@ -19,12 +19,19 @@
     }
   ],
   "main": "./lib/org.js",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "directories": {
     "test": "./tests"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/mooz/org-js.git"
+  },
+	"scripts": {
+		"test": "mocha --reporter list"
+	},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.1.3"
   }
 }
