@@ -1,0 +1,132 @@
+<h1>org.js</h1>
+<ul><li><a href="#header-1"><span class="section-number">1</span>Installation</a><ul><li><a href="#header-1-1"><span class="section-number">1.1</span>Node.js</a></li>
+<li><a href="#header-1-2"><span class="section-number">1.2</span>Web Browser</a></li>
+</ul>
+</li>
+<li><a href="#header-2"><span class="section-number">2</span>Usage</a><ul><li><a href="#header-2-1"><span class="section-number">2.1</span>Org -> HTML conversion</a></li>
+</ul>
+</li>
+<li><a href="#header-3"><span class="section-number">3</span>Supported notations</a><ul><li><a href="#header-3-1"><span class="section-number">3.1</span>Blocks</a><ul><li><a href="#header-3-1-1"><span class="section-number">3.1.1</span>Table</a></li>
+<li><a href="#header-3-1-2"><span class="section-number">3.1.2</span>List</a><ul><li><a href="#header-3-1-2-1"><span class="section-number">3.1.2.1</span>Ordered List</a></li>
+<li><a href="#header-3-1-2-2"><span class="section-number">3.1.2.2</span>Unordered List</a></li>
+<li><a href="#header-3-1-2-3"><span class="section-number">3.1.2.3</span>Definition List</a></li>
+</ul>
+</li>
+<li><a href="#header-3-1-3"><span class="section-number">3.1.3</span>Rule</a></li>
+<li><a href="#header-3-1-4"><span class="section-number">3.1.4</span>Directive</a><ul><li><a href="#header-3-1-4-1"><span class="section-number">3.1.4.1</span>BEGIN_QUOTE and END_QUOTE</a></li>
+<li><a href="#header-3-1-4-2"><span class="section-number">3.1.4.2</span>BEGIN_EXAMPLE and END_EXAMPLE</a></li>
+<li><a href="#header-3-1-4-3"><span class="section-number">3.1.4.3</span>BEGIN_SRC and END_SRC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#header-3-2"><span class="section-number">3.2</span>Inline elements</a><ul><li><a href="#header-3-2-1"><span class="section-number">3.2.1</span>Bold</a></li>
+<li><a href="#header-3-2-2"><span class="section-number">3.2.2</span>Italic</a></li>
+<li><a href="#header-3-2-3"><span class="section-number">3.2.3</span>Code</a></li>
+<li><a href="#header-3-2-4"><span class="section-number">3.2.4</span>Dashed</a></li>
+<li><a href="#header-3-2-5"><span class="section-number">3.2.5</span>Subscript</a></li>
+</ul>
+</li>
+<li><a href="#header-3-3"><span class="section-number">3.3</span>Handling TODO</a></li>
+<li><a href="#header-3-4"><span class="section-number">3.4</span>TODO Implement todo attributes</a></li>
+<li><a href="#header-3-5"><span class="section-number">3.5</span>DONE Implement todo heading</a></li>
+</ul>
+</li>
+<li><a href="#header-4"><span class="section-number">4</span>Directive support</a></li>
+</ul>
+
+<p>org.js is a parser and converter for org-mode (<a href="http://orgmode.org/"><a href="http://orgmode.org/">http://orgmode.org/</a></a>) notation written in JavaScript.</p>
+<h2 id="header-1"><span class="section-number">1</span>Installation</h2>
+<h3 id="header-1-1"><span class="section-number">1.1</span>Node.js</h3>
+<p>Install <code>org-js</code> module via <code>npm</code>.</p>
+<pre>npm install org</pre>
+<p>Then, in your application, load installed module as follows.</p>
+<pre class="prettyprint"><code class="language-unknown">var Org = require(&#34;org&#34;);</code>
+</pre>
+<h3 id="header-1-2"><span class="section-number">1.2</span>Web Browser</h3>
+<p>Just place <code>org.js</code> in your website and load it.</p>
+<pre class="prettyprint"><code class="language-html">&#60;script type=&#34;text/javascript&#34; src=&#34;org.js&#34;&#62;&#60;/script&#62;</code>
+</pre>
+<h2 id="header-2"><span class="section-number">2</span>Usage</h2>
+<h3 id="header-2-1"><span class="section-number">2.1</span>Org -> HTML conversion</h3>
+<pre class="prettyprint"><code class="language-javascript">var orgCode = &#34;some org notation text&#34;;
+var orgParser = new Org.Parser();
+var orgDocument = orgParser.parse(orgCode);
+var orgHTMLDocument = orgDocument.convert(Org.ConverterHTML, {
+  headerOffset: 1,
+  exportFromLineNumber: false,
+  suppressSubScriptHandling: false,
+  suppressAutoLink: false
+});
+
+console.dir(orgHTMLDocument); // =&#62; { title, contentHTML, tocHTML, toc }
+console.log(orgHTMLDocument.toString()) // =&#62; Rendered HTML</code>
+</pre>
+<h2 id="header-3"><span class="section-number">3</span>Supported notations</h2>
+<h3 id="header-3-1"><span class="section-number">3.1</span>Blocks</h3>
+<h4 id="header-3-1-1"><span class="section-number">3.1.1</span>Table</h4>
+<table><tbody><tr><th></th>
+<th>Symbol </th>
+<th>Author     </th>
+</tr>
+<tr><td>Emacs </td>
+<td><code>M-x</code>  </td>
+<td><span style="text-decoration:underline;">RMS</span>      </td>
+</tr>
+<tr><td>Vi    </td>
+<td><code>:</code>    </td>
+<td><span style="text-decoration:underline;">Bill Joy</span> </td>
+</tr>
+</tbody>
+</table>
+<h4 id="header-3-1-2"><span class="section-number">3.1.2</span>List</h4>
+<h5 id="header-3-1-2-1"><span class="section-number">3.1.2.1</span>Ordered List</h5>
+<ol><li>Orange</li>
+<li>Banana</li>
+<li>Apple</li>
+</ol>
+<h5 id="header-3-1-2-2"><span class="section-number">3.1.2.2</span>Unordered List</h5>
+<ul><li>Foo</li>
+<li>Bar</li>
+<li>Baz</li>
+</ul>
+<h5 id="header-3-1-2-3"><span class="section-number">3.1.2.3</span>Definition List</h5>
+<dl><dt>vim</dt>
+<dd>Vi IMproved, a programmers text editor</dd>
+<dt>ed</dt>
+<dd>Line-oriented text editor</dd>
+</dl>
+<h4 id="header-3-1-3"><span class="section-number">3.1.3</span>Rule</h4>
+<hr/>
+<h4 id="header-3-1-4"><span class="section-number">3.1.4</span>Directive</h4>
+<h5 id="header-3-1-4-1"><span class="section-number">3.1.4.1</span><code>BEGIN_QUOTE</code> and <code>END_QUOTE</code></h5>
+<blockquote><p>To be or not to be, that is the question.</p>
+</blockquote>
+<h5 id="header-3-1-4-2"><span class="section-number">3.1.4.2</span><code>BEGIN_EXAMPLE</code> and <code>END_EXAMPLE</code></h5>
+<pre>npm install org</pre>
+<h5 id="header-3-1-4-3"><span class="section-number">3.1.4.3</span><code>BEGIN_SRC</code> and <code>END_SRC</code></h5>
+<pre class="prettyprint"><code class="language-javascript">var Org = require(&#34;org&#34;);
+var orgParser = new Org.Parser();</code>
+</pre>
+<h3 id="header-3-2"><span class="section-number">3.2</span>Inline elements</h3>
+<h4 id="header-3-2-1"><span class="section-number">3.2.1</span>Bold</h4>
+<p>GNU is <b>Not</b> Unix.</p>
+<h4 id="header-3-2-2"><span class="section-number">3.2.2</span>Italic</h4>
+<p>GNU is <i>Not</i> Unix.</p>
+<h4 id="header-3-2-3"><span class="section-number">3.2.3</span>Code</h4>
+<p>Try <code>cat</code> or <code>tac</code>.</p>
+<h4 id="header-3-2-4"><span class="section-number">3.2.4</span>Dashed</h4>
+<p><del>Deleted</del></p>
+<h4 id="header-3-2-5"><span class="section-number">3.2.5</span>Subscript</h4>
+<p><span class="org-subscript-parent">Sub</span><span class="org-subscript-child">script</span>. <span class="org-subscript-parent">a</span><span class="org-subscript-child">1</span>, <span class="org-subscript-parent">a</span><span class="org-subscript-child">2</span>, and <span class="org-subscript-parent">a</span><span class="org-subscript-child">3</span>.</p>
+<h3 id="header-3-3"><span class="section-number">3.3</span>Handling TODO</h3>
+<h3 id="header-3-4" class="task-status todo"><span class="section-number">3.4</span><span class="task-status todo">TODO</span>Implement todo attributes</h3>
+<p>Support attributes like <code>SCHEDULED:</code>.</p>
+<h3 id="header-3-5" class="task-status done"><span class="section-number">3.5</span><span class="task-status done">DONE</span>Implement todo heading</h3>
+<p>Parse <code>TODO/DONE</code> in headers.</p>
+<h2 id="header-4"><span class="section-number">4</span>Directive support</h2>
+<ul><li><code>options:</code></li>
+<li><code>title:</code></li>
+<li><code>author:</code></li>
+<li><code>email:</code></li>
+</ul>
